@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import { Button } from 'components/Form/Form.styled'
-import { Item, Text } from './ContactItem.styled'
+import { Button } from '../Form/Form.style'
+import { Item, Text } from './ContactItem.style'
 
 export const ContactItem = ({ name, number, id, deleteContact }) => {
     return (

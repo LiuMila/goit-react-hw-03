@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from '@emotion/styled'
 
 export const SectionDiv = styled.div`
     padding-top: 10px;
@@ -6,7 +6,7 @@ export const SectionDiv = styled.div`
 `
 
 export const Title = styled.h1`
-color: #F6F6F6;
+color: #000000;
 font-family: DM Sans;
 font-size: 36px;
 font-weight: 500;

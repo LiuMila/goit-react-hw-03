@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Input, Label } from 'components/Form/Form.styled'
+import { Input, Label } from './Filter.style'
 
 export const Filter = ({ value, changeFilter }) => {
     return (<Label>

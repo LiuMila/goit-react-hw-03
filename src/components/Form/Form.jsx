@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import { Component } from "react"
-import shortid from "shortid"
-import { Input, Label, FormContainer, Button } from "./Form.styled"
-
+import shortid from "shortid";
+import { Input, Label, FormContainer, Button } from "./Form.style";
 
 class Form extends Component{
 state = {
@@ -70,4 +69,4 @@ reset = () => {
 }
 
 
-export default Form
+export default Form;

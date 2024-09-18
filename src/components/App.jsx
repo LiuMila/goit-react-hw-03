@@ -1,10 +1,10 @@
 import { Component } from 'react'
-import  Form  from './Form/Form';
-import { Contacts } from './Contacts/Contacts';
-import shortid from "shortid";
-import { Section } from './Section/Section';
-import { Filter } from './Filter/Filter';
-import './App.css';
+import  Form  from './Form/Form'
+import { Contacts } from './Contacts/Contacts'
+import shortid from "shortid"
+import { Section } from './Section/Section'
+import { Filter } from './Filter/Filter'
+import { Container } from './App.style';
 
 
 class App extends Component{
@@ -71,18 +71,17 @@ state = {
     
     const visibleContacts = this.getVisibleContacts()
 
-    return <container>
-      <section title='Phonebook'>
-      <form onSubmit={ this.formSubmitHandler} />
-      </section>
-      <section title='Contacts'>
-        <filter value={this.state.filter} changeFilter={this.changeFilter} />
-        <contacts contacts={visibleContacts}
+    return <Container>
+      <Section title='Phonebook'>
+      <Form onSubmit={ this.formSubmitHandler} />
+      </Section>
+      <Section title='Contacts'>
+        <Filter value={this.state.filter} changeFilter={this.changeFilter} />
+        <Contacts contacts={visibleContacts}
           deleteContact={ this.deleteContact} />
-      </section>
-    </container>
+      </Section>
+    </Container>
   }
 }
 
 export default App;
-
