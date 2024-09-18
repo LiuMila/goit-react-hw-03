@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import  Form  from './ContactForm/ContactForm'
-import { Contacts } from './Contact/Contact'
+import { Contacts } from './ContactList/ContactList'
 import shortid from "shortid"
 import { Section } from './Section/Section'
 import { Filter } from './SearchBox/SearchBox'
