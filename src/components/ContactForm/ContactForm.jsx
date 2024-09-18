@@ -1,72 +1,71 @@
-import PropTypes from 'prop-types'
-import { Component } from "react"
-import shortid from "shortid";
-import { Input, Label, FormContainer, Button } from "./ContactForm.style";
+import PropTypes from 'prop-types';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import shortid from 'shortid';
+import { Input, Label, FormContainer, Button } from './ContactForm.style';
 
-class Form extends Component{
-state = {
-    name: '',
-    number: ''
-}
+const Form = ({ onSubmit }) => {
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      number: '',
+    },
+    validationSchema: Yup.object({
+      name: Yup.string()
+        .matches(
+          /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
+          "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+        )
+        .required('Required'),
+      number: Yup.string()
+        .matches(
+          /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
+          'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
+        )
+        .required('Required'),
+    }),
+    onSubmit: (values, { resetForm }) => {
+      onSubmit(values);
+      resetForm();
+    },
+  });
 
-    nameInputId = shortid.generate()
-    telInputId = shortid.generate()
+  const nameInputId = shortid.generate();
+  const telInputId = shortid.generate();
 
- static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-}
+  return (
+    <FormContainer onSubmit={formik.handleSubmit}>
+      <Label htmlFor={nameInputId}>Name
+        <Input
+          type="text"
+          name="name"
+          id={nameInputId}
+          {...formik.getFieldProps('name')}
+          isError={formik.touched.name && formik.errors.name}
+        />
+        {formik.touched.name && formik.errors.name ? (
+          <div>{formik.errors.name}</div>
+        ) : null}
+      </Label>
+      <Label htmlFor={telInputId}>Number
+        <Input
+          type="tel"
+          name="number"
+          id={telInputId}
+          {...formik.getFieldProps('number')}
+          isError={formik.touched.number && formik.errors.number}
+        />
+        {formik.touched.number && formik.errors.number ? (
+          <div>{formik.errors.number}</div>
+        ) : null}
+      </Label>
+      <Button type="submit">Add contact</Button>
+    </FormContainer>
+  );
+};
 
-handleChange = e => {
-    const { name, value} = e.currentTarget
-    console.log(e.currentTarget.value)
-    this.setState({ [name]: value })
-}
-    
-handleSubmit = e => {
-    e.preventDefault();
-         
-    this.props.onSubmit(this.state)
-
-    this.reset()
-}   
-    
-reset = () => {
-    this.setState({
-    name: '',
-    number: ''})
-    }
-
-    render() {
-           return (
-        <FormContainer onSubmit={this.handleSubmit}>
-            <Label htmlFor={this.nameInputId}> Name
-            <Input
-                type="text"
-                name="name"
-                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                required
-                value={this.state.name}
-                onChange={this.handleChange}
-                id={this.nameInputId}           />
-
-                </Label>
-                <Label htmlFor={this.telInputId}>
-                    Number
-            <Input
-                type="tel"
-                name="number"
-               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                required
-                value={this.state.number}
-                onChange={this.handleChange}
-               id={this.telInputId } />
-                </Label>
-            <Button type="submit">Add contact</Button>
-     </FormContainer>
-)}
-}
-
+Form.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default Form;
