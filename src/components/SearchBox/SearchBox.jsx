@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Input, Label } from './Filter.style'
+import { Input, Label } from './SearchBox.style'
 
 export const Filter = ({ value, changeFilter }) => {
     return (<Label>
